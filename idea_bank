@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+require 'highline/import'
+
+if ARGV.length < 1
+  print "[Help] Run as: ./idea_bank add [project name]"
+elsif ARGV.length == 1
+  # Not valid argument
+  if ARGV[0] != "add"
+    print "[Help] Run as: ./idea_bank add [project name]"
+  end
+else
+  if ARGV[0] == "add"
+    print ARGV[1]
+  end
+end
