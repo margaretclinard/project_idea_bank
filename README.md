@@ -89,7 +89,7 @@ Acceptance Criteria:
 In order to see a list of all the projects in my idea bank, the program should print a list of project names.
 
 ```
-> ./idea_bank
+> ./idea_bank projects
 My Projects
 1. [project name]
 2. [project name 2]
@@ -102,6 +102,6 @@ Back? (y/n)
 ```
 
 Acceptance Criteria:
-* User executes `./idea_bank` with no argument.
+* User inputs `./idea_bank projects`.
 * A list of projects is generated.
 * User can select a project from the list to view it.
