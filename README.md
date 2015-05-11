@@ -104,4 +104,4 @@ Back? (y/n)
 Acceptance Criteria:
 * User executes `./idea_bank` with no argument.
 * A list of projects is generated.
-* User can select a project from the list to view/update/delete it.
+* User can select a project from the list to view it.
