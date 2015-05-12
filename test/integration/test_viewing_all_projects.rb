@@ -43,7 +43,29 @@ class ViewingAllProjects < Minitest::Test
 4. View all projects
 EOS
       pipe.puts "4"
-      expected_output << "My Projects\n"
+      expected_output << "No projects found. Add a project.\n"
+      pipe.close_write
+      shell_output = pipe.read
+    end
+    assert_equal expected_output, shell_output
+  end
+
+  def test_viewing_multiple_projects
+    skip
+    add_project("Project 1")
+    add_project("Project 2")
+    shell_output = ""
+    expected_output = ""
+    IO.popen("./idea_bank manage", "r+") do |pipe|
+      expected_output = <<EOS
+1. Add project
+2. Update project
+3. Delete project
+4. View all projects
+EOS
+      pipe.puts "4"
+      expected_output << "1. Project 1\n"
+      expected_output << "2. Project 2\n"
       pipe.close_write
       shell_output = pipe.read
     end
