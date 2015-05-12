@@ -1,15 +1,20 @@
 #!/usr/bin/env ruby
 require 'highline/import'
 
+
 if ARGV.length < 1
-  print "[Help] Run as: ./idea_bank add [project name]"
+  print "[Help] Run as: ./idea_bank manage\n"
 elsif ARGV.length == 1
-  # Not valid argument
-  if ARGV[0] != "add"
-    print "[Help] Run as: ./idea_bank add [project name]"
-  end
-else
-  if ARGV[0] == "add"
-    print ARGV[1]
+  if ARGV[0] != 'manage'
+    print "[Help] Run as: ./idea_bank manage\n"
+  else
+    choose do |menu|
+      menu.prompt = ""
+
+      menu.choice('Add project') { say("Enter project name.\n") }
+      menu.choice('Update project') { say("What project would you like to update?\n") }
+      menu.choice('Delete project') { say("What project would you like to delete?\n") }
+      menu.choice('View all projects') { say("My Projects\n") }
+    end
   end
 end
