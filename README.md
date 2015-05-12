@@ -14,11 +14,13 @@ Users will be able to add/edit/delete projects and their associated details.
 In order to interact with the program, users can view all of the program options from a main menu.
 
 Usage Example:
+```
 > ./idea_bank manage
 1. Add project
 2. Update project
 3. Delete project
 4. View all projects
+```
 
 Acceptance Criteria:
 * User passes in `manage` command
