@@ -9,6 +9,21 @@ Users will be able to add/edit/delete projects and their associated details.
 
 ## Features
 
+### Managing your projects
+
+In order to interact with the program, users can view all of the program options from a main menu.
+
+Usage Example:
+> ./idea_bank manage
+1. Add project
+2. Update project
+3. Delete project
+4. View all projects
+
+Acceptance Criteria:
+* User passes in `manage` command
+* User can select from a menu of options: Add project, Update project, Delete project, View all projects
+
 ### Adding a new project
 
 To store specific project ideas, users can add projects to their idea bank.
@@ -16,8 +31,14 @@ To store specific project ideas, users can add projects to their idea bank.
 Usage Example:
 
 ```
-> ./idea_bank add [project name]
-[project name]
+> ./idea_bank manage
+1. Add project
+2. Update project
+3. Delete project
+4. View all projects
+> 1
+Enter project name.
+> [project name]
 Enter a brief description of the project.
 > This is an example user input of project description.
 [project name]
@@ -35,9 +56,9 @@ Stack: Ruby
 ```
 
 Acceptance Criteria:
-* User passes in `add` command followed by a project name.
-* The project name is printed with a prompt to enter the project's description and technology stack.
-* Confirmation is printed showing the new project with details.
+* User selects `1` from the main menu.
+* User is prompted to enter the project details.
+* The project name, description, and stack is printed.
 
 ### Updating a project
 
@@ -46,7 +67,17 @@ In order to update the projects as specific details change, I want to edit proje
 Usage Example:
 
 ```
-> ./idea_bank update [project name]
+> > ./idea_bank manage
+1. Add project
+2. Update project
+3. Delete project
+4. View all projects
+> 2
+What project would you like to update?
+1. [project name]
+2. [project name 2]
+3. [project name 3]
+> 1
 Would you like to update [project name]'s:
 1. Name
 2. Description
@@ -63,9 +94,10 @@ Finished updating? (y/n)
 ```
 
 Acceptance Criteria:
-* User passes in `update` command followed by a project name.
+* User selects `2` from the main menu.
+* User is prompted to pick from the list of projects in the database.
 * User is prompted to pick from the details that can be updated.
-* User enters the corresponding update.
+* User enters the corresponding updates.
 * The project update is printed along with a yes/no prompt for whether or not the update is complete.
 
 
@@ -76,20 +108,38 @@ In order to remove project ideas that I am no longer interested in pursuing, I w
 Usage Example:
 
 ```
-> ./idea_bank delete [project name]
+> ./idea_bank manage
+1. Add project
+2. Update project
+3. Delete project
+4. View all projects
+> 3
+What project would you like to delete?
+1. [project name]
+2. [project name 2]
+3. [project name 3]
+> 1
+Are you sure you want to delete [project name]? (y/n)
+> y
 [project name] has been deleted.
 ```
 
 Acceptance Criteria:
-* User inputs `delete` command followed by a project name.
-* The project is deleted and a print out message confirms the deletion.
+* User selects `3` from the main menu.
+* User is prompted to pick from the list of projects in the database.
+* The selected project is deleted and a print out message confirms the deletion.
 
 ### Printing a list of all projects
 
 In order to see a list of all the projects in my idea bank, the program should print a list of project names.
 
 ```
-> ./idea_bank projects
+> ./idea_bank manage
+1. Add project
+2. Update project
+3. Delete project
+4. View all projects
+> 4
 My Projects
 1. [project name]
 2. [project name 2]
@@ -99,9 +149,15 @@ My Projects
 Details: This is an example user input of project description.
 Stack: Ruby
 Back? (y/n)
+> y
+My Projects
+1. [project name]
+2. [project name 2]
+3. [project name 3]
 ```
 
 Acceptance Criteria:
-* User inputs `./idea_bank projects`.
-* A list of projects is generated.
+* User selects `4` from the main menu.
+* A list of projects in the database is generated.
 * User can select a project from the list to view it.
+* User can return back to the main list of projects.
