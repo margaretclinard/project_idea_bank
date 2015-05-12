@@ -33,6 +33,7 @@ require_relative '../test_helper'
 class ViewingAllProjects < Minitest::Test
 
   def test_viewing_no_projects
+    setup_database
     shell_output = ""
     expected_output = ""
     IO.popen("./idea_bank manage", "r+") do |pipe|
