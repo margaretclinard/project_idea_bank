@@ -3,9 +3,14 @@ require_relative '../test_helper'
 # To store specific project ideas, users can add projects to their idea bank.
 
 # Usage Example:
-
-# > ./idea_bank add [project name]
-# [project name]
+# > ./idea_bank manage
+# 1. Add project
+# 2. Update project
+# 3. Delete project
+# 4. View all projects
+# > 1
+# Enter project name.
+# > [project name]
 # Enter a brief description of the project.
 # > This is an example user input of project description.
 # [project name]
@@ -22,40 +27,10 @@ require_relative '../test_helper'
 # Stack: Ruby
 
 # Acceptance Criteria:
-# * User passes in `add` command followed by a project name.
-# * The project name is printed with a prompt to enter the project's description and technology stack.
-# * Confirmation is printed showing the new project with details.
+# * User selects `1` from the main menu.
+# * User is prompted to enter the project details.
+# * The project name, description, and stack is printed.
 
 class AddingANewProject < Minitest::Test
-
-  def test_minimum_arguments_required
-    shell_output = ""
-    expected_output = ""
-    IO.popen("./idea_bank") do |pipe|
-      expected_output = "[Help] Run as: ./idea_bank add [project name]"
-      shell_output = pipe.read
-    end
-    assert_equal expected_output, shell_output
-  end
-
-  def test_correct_argument_not_given
-    shell_output = ""
-    expected_output = ""
-    IO.popen("./idea_bank blah") do |pipe|
-      expected_output = "[Help] Run as: ./idea_bank add [project name]"
-      shell_output = pipe.read
-    end
-    assert_equal expected_output, shell_output
-  end
-
-  def test_add_argument_given
-    shell_output = ""
-    expected_output = ""
-    IO.popen("./idea_bank add [project_name]") do |pipe|
-      expected_output = "[project_name]"
-      shell_output = pipe.read
-    end
-    assert_equal expected_output, shell_output
-  end
 
 end
