@@ -11,4 +11,14 @@ class Database
     database = "db/idea_bank_#{environment}.sqlite"
     @@db = SQLite3::Database.new(database)
   end
+
+  def self.load_structure
+    Database.execute <<-SQL
+    CREATE TABLE IF NOT EXISTS projects (
+      id integer PRIMARY KEY AUTOINCREMENT,
+      name varchar(55) NOT NULL
+    );
+  SQL
+    Database.execute("DELETE FROM projects;")
+  end
 end
