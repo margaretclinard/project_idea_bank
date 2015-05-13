@@ -52,7 +52,7 @@ EOS
   end
 
   def test_viewing_multiple_projects
-    skip
+    setup_database
     add_project("Project 1")
     add_project("Project 2")
     shell_output = ""
