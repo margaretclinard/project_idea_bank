@@ -52,9 +52,20 @@ What technologies will be used in the creation of this project?
 4. AngularJS
 5. Ruby
 > 5
+Ruby has been added to your technology stack.
+Would you like to add another technology?
+>y
+1. HTML
+2. CSS
+3. JavaScript
+4. AngularJS
+> 1
+HTML has been added to your technology stack.
+Would you like to add another technology?
+> n
 [project name]
 Details: This is an example user input of project description.
-Stack: Ruby
+Stack: Ruby, HTML
 ```
 
 Acceptance Criteria:
