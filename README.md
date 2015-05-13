@@ -7,6 +7,10 @@ A command-line program that keeps track of project ideas and details.
 
 Users will be able to add/edit/delete projects and their associated details.
 
+## Usage
+ * Run `rake bootstrap_database` to setup your local database.
+ * Then, `./idea_bank manage` to run the program.
+
 ## Features
 
 ### Managing your projects
