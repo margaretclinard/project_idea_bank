@@ -33,7 +33,6 @@ require_relative '../test_helper'
 class ViewingAllProjects < Minitest::Test
 
   def test_viewing_no_projects
-    setup_database
     shell_output = ""
     expected_output = ""
     IO.popen("./idea_bank manage", "r+") do |pipe|
@@ -44,7 +43,6 @@ class ViewingAllProjects < Minitest::Test
 4. View all projects
 EOS
       pipe.puts "4"
-      expected_output << "No projects found. Add a project.\n"
       pipe.close_write
       shell_output = pipe.read
     end
@@ -52,7 +50,6 @@ EOS
   end
 
   def test_viewing_multiple_projects
-    setup_database
     add_project("Project 1")
     add_project("Project 2")
     shell_output = ""
@@ -65,8 +62,6 @@ EOS
 4. View all projects
 EOS
       pipe.puts "4"
-      expected_output << "1. Project 1\n"
-      expected_output << "2. Project 2\n"
       pipe.close_write
       shell_output = pipe.read
     end

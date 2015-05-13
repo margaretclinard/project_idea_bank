@@ -3,20 +3,36 @@ require 'highline/import'
 Dir["./app/**/*.rb"].each { |f| require f }
 Dir["./lib/*.rb"].each { |f| require f }
 
-if ARGV.length < 1
-  print "[Help] Run as: ./idea_bank manage\n"
-elsif ARGV.length == 1
-  if ARGV[0] != 'manage'
-    print "[Help] Run as: ./idea_bank manage\n"
-  else
-    choose do |menu|
-      menu.prompt = ""
+if ARGV.size == 1 and ARGV[0] == "manage"
+  choose do |menu|
+    menu.prompt = ""
 
-      projects_controller = ProjectsController.new
-      menu.choice('Add project') { say("Enter project name.\n") }
-      menu.choice('Update project') { say("What project would you like to update?\n") }
-      menu.choice('Delete project') { say("What project would you like to delete?\n") }
-      menu.choice('View all projects') { projects_controller.index }
+    projects_controller = ProjectsController.new
+    menu.choice('Add project') do
+      user_input_project = ask("Enter project name.")
+      response = projects_controller.add(user_input_project)
+      say("#{user_input_project} has been added.\n") unless response.nil?
+
+      user_input_desc = ask("Enter a brief description of the project.")
+      response_desc = projects_controller.add(user_input_desc)
+      say("#{user_input_project}\nDetails: #{user_input_desc}\n")
+    end
+
+    menu.choice('Update project') do
+      say("What project would you like to update?\n")
+      exit
+    end
+
+    menu.choice('Delete project') do
+      say("What project would you like to delete?")
+      exit
+    end
+
+    menu.choice('View all projects') do
+      say(projects_controller.index)
+      exit
     end
   end
+else
+  puts "[Help] Run as: ./idea_bank manage"
 end

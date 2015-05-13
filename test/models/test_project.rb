@@ -1,9 +1,6 @@
 require_relative '../test_helper'
 
 describe Project do
-  before do
-    setup_database
-  end
   describe "#all" do
     describe "if there are no projects in the database" do
       it "should return an empty array" do

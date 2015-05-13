@@ -33,4 +33,31 @@ require_relative '../test_helper'
 
 class AddingANewProject < Minitest::Test
 
+  def test_adding_a_project
+    shell_output = ""
+    expected_output = <<EOS
+1. Add project
+2. Update project
+3. Delete project
+4. View all projects
+EOS
+    IO.popen("./idea_bank manage", "r+") do |pipe|
+      pipe.puts "1"
+      expected_output << "Enter project name.\n"
+      pipe.puts "Project 1"
+      expected_output << <<EOS
+Project 1 has been added.
+Enter a brief description of the project.
+EOS
+      pipe.puts "This is an example description."
+      expected_output << <<EOS
+Project 1
+Details: This is an example description.
+EOS
+      pipe.close_write
+      shell_output = pipe.read
+    end
+    assert_equal expected_output, shell_output
+  end
+
 end

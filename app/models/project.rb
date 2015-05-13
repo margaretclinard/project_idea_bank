@@ -12,4 +12,12 @@ class Project
   def self.count
     Database.execute("select count(id) from projects")[0][0]
   end
+
+  def self.create(name)
+    if name.empty?
+      raise ArgumentError.new
+    else
+      Database.execute("INSERT INTO projects (name) VALUES (?)", name)
+    end
+  end
 end
