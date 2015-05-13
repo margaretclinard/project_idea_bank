@@ -8,6 +8,7 @@ Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(reporter_opti
 require 'minitest/autorun'
 Dir["./app/**/*.rb"].each { |f| require f }
 Dir["./lib/*.rb"].each { |f| require f }
+ENV["TEST"] = "true"
 
 def add_project(name)
   Database.execute("INSERT INTO projects (name) VALUES (?)", name)
