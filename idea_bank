@@ -16,7 +16,7 @@ elsif ARGV.length == 1
       menu.choice('Add project') { say("Enter project name.\n") }
       menu.choice('Update project') { say("What project would you like to update?\n") }
       menu.choice('Delete project') { say("What project would you like to delete?\n") }
-      menu.choice('View all projects') { say(projects_controller.index) }
+      menu.choice('View all projects') { projects_controller.index }
     end
   end
 end
