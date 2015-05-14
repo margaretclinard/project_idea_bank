@@ -1,5 +1,5 @@
 class Project
-  attr_reader :id
+  attr_reader :id, :errors
   attr_accessor :name
 
   def initialize(name = nil)
@@ -19,15 +19,18 @@ class Project
   end
 
   def save
+    return false unless valid?
     Database.execute("INSERT INTO projects (name) VALUES (?)", name)
     @id = Database.execute("SELECT last_insert_rowid()")[0]['last_insert_rowid()']
   end
 
-  def self.create(name)
-    return if /^\d+$/.match(name)
-    if name.empty?
-      raise ArgumentError.new
+  def valid?
+    if name.nil? or name.empty? or /^\d+$/.match(name)
+      @errors = "\"#{name}\" is not a valid project name."
+      false
     else
+      @errors = nil
+      true
     end
   end
 end

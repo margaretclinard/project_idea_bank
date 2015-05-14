@@ -82,4 +82,66 @@ describe Project do
     end
   end
 
+  describe ".valid?" do
+    describe "with valid data" do
+      let(:project) { Project.new("Project 1") }
+      it "returns true" do
+        assert project.valid?
+      end
+      it "should set errors to nil" do
+        project.valid?
+        assert project.errors.nil?
+      end
+    end
+
+    describe "with no name" do
+      let(:project) { Project.new(nil) }
+      it "returns false" do
+        refute project.valid?
+      end
+      it "sets the error message" do
+        project.valid?
+        assert_equal "\"\" is not a valid project name.", project.errors
+      end
+    end
+
+    describe "with empty name" do
+      let(:project) { Project.new("") }
+      it "returns false" do
+        refute project.valid?
+      end
+      it "sets the error message" do
+        project.valid?
+        assert_equal "\"\" is not a valid project name.", project.errors
+      end
+    end
+
+    describe "with a name with no letter characters" do
+      let(:project) { Project.new("777") }
+      it "returns false" do
+        refute project.valid?
+      end
+      it "sets the error message" do
+        project.valid?
+        assert_equal "\"777\" is not a valid project name.", project.errors
+      end
+    end
+
+    describe "with a previously invalid name" do
+      let(:project) { Project.new("666") }
+      before do
+        refute project.valid?
+        project.name = "Project 1"
+        assert_equal "Project 1", project.name
+      end
+      it "should return true" do
+        assert project.valid?
+      end
+      it "should not have an error message" do
+        project.valid?
+        assert_nil project.errors
+      end
+    end
+  end
+
 end
