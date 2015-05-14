@@ -11,7 +11,7 @@ if ARGV.size == 1 and ARGV[0] == "manage"
     menu.choice('Add project') do
       user_input_project = ask("Enter project name.")
       response = projects_controller.add(user_input_project)
-      say("#{user_input_project} has been added.\n") unless response.nil?
+      say(response) unless response.nil?
 
       user_input_desc = ask("Enter a brief description of the project.")
       response_desc = projects_controller.add(user_input_desc)

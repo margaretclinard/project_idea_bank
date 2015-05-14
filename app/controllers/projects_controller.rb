@@ -16,9 +16,7 @@ class ProjectsController
 
   def add(name)
     name_cleaned = name.strip
-    unless /^\d+$/.match(name_cleaned)
-      Project.create(name_cleaned)
-      name_cleaned
-    end
+    Project.create(name_cleaned)
+    "#{name} has been added."
   end
 end
