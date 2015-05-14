@@ -16,7 +16,11 @@ class ProjectsController
 
   def add(name)
     name_cleaned = name.strip
-    Project.create(name_cleaned)
-    "#{name} has been added."
+    project = Project.new(name_cleaned)
+    if project.save
+      "#{name} has been added."
+    else
+      project.errors
+    end
   end
 end

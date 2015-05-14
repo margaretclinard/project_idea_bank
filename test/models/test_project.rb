@@ -38,4 +38,48 @@ describe Project do
       end
     end
   end
+
+  describe ".initialize" do
+    it "sets the name attribute" do
+      project = Project.new("foo")
+      assert_equal "foo", project.name
+    end
+  end
+
+  describe ".save" do
+    describe "if the model is valid" do
+      let(:project) { Project.new("Project 1") }
+      it "should return true" do
+        assert project.save
+      end
+      it "should save the model to the database" do
+        project.save
+        last_row = Database.execute("SELECT * FROM projects")[0]
+        database_name = last_row['name']
+        assert_equal "Project 1", database_name
+      end
+      it "should populate the model with the id from the database" do
+        project.save
+        last_row = Database.execute("SELECT * FROM projects")[0]
+        database_id = last_row['id']
+        assert_equal database_id, project.id
+      end
+    end
+
+    describe "if the model is invalid" do
+      let(:project){ Project.new("")}
+      it "should return false" do
+        refute project.save
+      end
+      it "should not save the model to the database" do
+        project.save
+        assert_equal 0, Project.count
+      end
+      it "should populate the error messages" do
+        project.save
+        assert_equal "\"\" is not a valid project name.", project.errors
+      end
+    end
+  end
+
 end

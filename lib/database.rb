@@ -10,6 +10,7 @@ class Database
     environment = ENV["TEST"] ? "test" : "production"
     database = "db/idea_bank_#{environment}.sqlite"
     @@db = SQLite3::Database.new(database)
+    @@db.results_as_hash = true
   end
 
   def self.load_structure
