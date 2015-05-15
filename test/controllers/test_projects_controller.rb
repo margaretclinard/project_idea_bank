@@ -22,7 +22,8 @@ describe ProjectsController do
 
     it "should not add project as all spaces" do
       project_name = "       "
-      assert_raises(ArgumentError) { controller.add(project_name) }
+      result = controller.add(project_name)
+      assert_equal "\"\" is not a valid project name.", result
     end
   end
 
