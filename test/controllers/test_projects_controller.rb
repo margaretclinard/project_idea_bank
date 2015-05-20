@@ -6,6 +6,7 @@ describe ProjectsController do
     let(:controller) {ProjectsController.new}
 
     it "should say no projects found when empty" do
+      skip
       actual_output = controller.index
       expected_output = "No projects found. Add a project.\n"
       assert_equal expected_output, actual_output

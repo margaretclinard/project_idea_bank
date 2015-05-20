@@ -47,6 +47,22 @@ class Project
     end
   end
 
+  def save
+    return false unless valid?
+    if @id.nil?
+      Database.execute("INSERT INTO projects (name) VALUES (?)", name)
+      @id = Database.execute("SELECT last_insert_rowid()")[0]['last_insert_rowid()']
+      true
+    else
+      Database.execute("UPDATE projects SET name=? WHERE id=?", name, id)
+      true
+    end
+  end
+
+  def self.delete(id)
+    Database.execute("DELETE FROM projects WHERE id=?", id)
+  end
+
   private
 
   def self.populate_from_database(row)

@@ -29,7 +29,7 @@ class ProjectsController
         edit(project)
       end
       menu.choice("Delete") do
-        destroy(project)
+        destroy(project.id)
       end
       menu.choice("Exit") do
         exit
@@ -44,6 +44,11 @@ class ProjectsController
     else
       project.errors
     end
+  end
+
+  def destroy(id)
+    Project.delete(id)
+    say ("Project has been deleted.")
   end
 
   def edit(project)
