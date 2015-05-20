@@ -45,4 +45,17 @@ class ProjectsController
       project.errors
     end
   end
+
+  def edit(project)
+    loop do
+      user_input = ask("Enter a new name:")
+      project.name = user_input.strip
+      if project.save
+        say("Project has been updated to: \"#{project.name}\"")
+        return
+      else
+        say(project.errors)
+      end
+    end
+  end
 end

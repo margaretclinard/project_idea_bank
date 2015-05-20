@@ -1,16 +1,15 @@
 class Project
   attr_reader :id, :errors
-  attr_accessor :name
+  attr_accessor :name, :description
 
   def initialize(name = nil)
     self.name = name
+    @id
   end
 
   def self.all
-    Database.execute("select name from projects order by name ASC").map do |row|
-      project = Project.new
-      project.name = row[0]
-      project
+    Database.execute("select * from projects order by name ASC").map do |row|
+      populate_from_database(row)
     end
   end
 
