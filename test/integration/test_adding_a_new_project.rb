@@ -91,6 +91,12 @@ EOS
 Project 1
 Details: This is an example description.
 EOS
+      expected_output = <<EOS
+1. Add project
+2. View all projects
+3. Exit
+EOS
+      pipe.puts "3"
       pipe.close_write
       shell_output = pipe.read
     end

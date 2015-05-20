@@ -53,12 +53,11 @@ EOS
       pipe.puts "1"
       expected_output << <<EOS
 Would you like to?
-1. View project details
-2. Edit
-3. Delete
-4. Exit
+1. Edit
+2. Delete
+3. Exit
 EOS
-      pipe.puts "4" # Exit
+      pipe.puts "3" # Exit
       shell_output = pipe.read
       pipe.close_write
       pipe.close_read
@@ -83,12 +82,11 @@ EOS
       pipe.puts "1"
       expected_output << <<EOS
 Would you like to?
-1. View project details
-2. Edit
-3. Delete
-4. Exit
+1. Edit
+2. Delete
+3. Exit
 EOS
-      pipe.puts "2" # Edit
+      pipe.puts "1" # Edit
       expected_output << "Enter a new name:\n"
       pipe.puts "Project 2"
       expected_output << "Project has been updated to: \"Project 2\"\n"

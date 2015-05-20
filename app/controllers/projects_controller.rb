@@ -37,8 +37,10 @@ class ProjectsController
     end
   end
 
-  def add(name)
-    project = Project.new(name.strip)
+  def add(name, description)
+    project = Project.new
+    project.name = name
+    project.description = description
     if project.save
       "#{name} has been added.\n"
     else

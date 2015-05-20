@@ -30,7 +30,5 @@ class Database
       project_id integer
     );
   SQL
-
-    Database.execute("DELETE FROM projects;")
   end
 end

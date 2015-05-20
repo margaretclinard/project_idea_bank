@@ -4,7 +4,6 @@ class Project
 
   def initialize(name = nil)
     self.name = name
-    @id
   end
 
   def self.all
@@ -26,14 +25,12 @@ class Project
     end
   end
 
-  def save
-    return false unless valid?
-    if @id.nil?
-      Database.execute("INSERT INTO projects (name) VALUES (?)", name)
-      @id = Database.execute("SELECT last_insert_rowid()")[0]['last_insert_rowid()']
+  def self.find_by_name(name)
+    row = Database.execute("select * from projects where name LIKE ?", name).first
+    if row.nil?
+      nil
     else
-      Database.execute("UPDATE projects SET name=? WHERE id=?", name, id)
-      true
+      populate_from_database(row)
     end
   end
 
@@ -50,11 +47,11 @@ class Project
   def save
     return false unless valid?
     if @id.nil?
-      Database.execute("INSERT INTO projects (name) VALUES (?)", name)
+      Database.execute("INSERT INTO projects (name, description) VALUES (?,?)", name, description)
       @id = Database.execute("SELECT last_insert_rowid()")[0]['last_insert_rowid()']
       true
     else
-      Database.execute("UPDATE projects SET name=? WHERE id=?", name, id)
+      Database.execute("UPDATE projects SET name=?, description=? WHERE id=?", name, description, id)
       true
     end
   end
@@ -68,6 +65,7 @@ class Project
   def self.populate_from_database(row)
     project = Project.new
     project.name = row['name']
+    project.description = row['description']
     project.instance_variable_set(:@id, row['id'])
     project
   end
