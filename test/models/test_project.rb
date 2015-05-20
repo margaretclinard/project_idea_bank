@@ -142,6 +142,23 @@ describe Project do
         assert_nil project.errors
       end
     end
+
+    describe "updating data" do
+      describe "edit previously entered project" do
+        let(:project_name){ "Project 1" }
+        let(:new_project_name){ "Updated Project 1" }
+        it "should update project name but not id" do
+          project = Project.new(project_name)
+          project.save
+          assert_equal 1, Project.count
+          project.name = new_project_name
+          assert project.save
+          assert_equal 1, Project.count
+          last_row = Database.execute("SELECT * FROM projects")[0]
+          assert_equal new_project_name, last_row['name']
+        end
+      end
+    end
   end
 
 end
