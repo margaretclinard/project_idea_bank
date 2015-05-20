@@ -4,33 +4,30 @@ Dir["./app/**/*.rb"].each { |f| require f }
 Dir["./lib/*.rb"].each { |f| require f }
 
 if ARGV.size == 1 and ARGV[0] == "manage"
-  choose do |menu|
-    menu.prompt = ""
+  loop do
+    choose do |menu|
+      menu.prompt = ""
 
-    projects_controller = ProjectsController.new
-    menu.choice('Add project') do
-      user_input_project = ask("Enter project name.")
-      response = projects_controller.add(user_input_project)
-      say(response) unless response.nil?
+      projects_controller = ProjectsController.new
+      menu.choice('Add project') do
+        user_input_project = ask("Enter project name.")
+        response = projects_controller.add(user_input_project)
+        say(response) unless response.nil?
 
-      user_input_desc = ask("Enter a brief description of the project.")
-      response_desc = projects_controller.add(user_input_desc)
-      say("#{user_input_project}\nDetails: #{user_input_desc}\n")
-    end
+        user_input_desc = ask("Enter a brief description of the project.")
+        projects_controller.add(user_input_desc)
+        say("#{user_input_project}\nDetails: #{user_input_desc}\n")
+      end
 
-    menu.choice('Update project') do
-      say("What project would you like to update?\n")
-      exit
-    end
+      menu.choice('View all projects') do
+        projects_controller.index
+        exit
+      end
 
-    menu.choice('Delete project') do
-      say("What project would you like to delete?")
-      exit
-    end
-
-    menu.choice('View all projects') do
-      say(projects_controller.index)
-      exit
+      menu.choice('Exit') do
+        say("Goodbye!")
+        exit
+      end
     end
   end
 else
