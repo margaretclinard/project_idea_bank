@@ -17,7 +17,8 @@ class Database
     Database.execute <<-SQL
     CREATE TABLE IF NOT EXISTS projects (
       id integer PRIMARY KEY AUTOINCREMENT,
-      name varchar(55) NOT NULL
+      name varchar(55),
+      description varchar(55)
     );
   SQL
     Database.execute("DELETE FROM projects;")
