@@ -37,22 +37,68 @@ require_relative '../test_helper'
 
 class UpdatingAProject < Minitest::Test
 
-  def test_update_argument_given
+  def test_user_left_projects_unchanged
     shell_output = ""
-    expected_output = ""
-    IO.popen("./idea_bank manage", "r+") do |pipe|
-      expected_output = <<EOS
+    expected_output = <<EOS
 1. Add project
-2. Update project
-3. Delete project
-4. View all projects
+2. View all projects
+3. Exit
 EOS
+    test_project = "Project 1"
+    Project.new(test_project).save
+    IO.popen('./idea_bank manage', 'r+') do |pipe|
       pipe.puts "2"
-      expected_output << "What project would you like to update?\n"
-      pipe.close_write
+      expected_output << "1. #{test_project}\n"
+      expected_output << "2. Exit\n"
+      pipe.puts "1"
+      expected_output << <<EOS
+Would you like to?
+1. View project details
+2. Edit
+3. Delete
+4. Exit
+EOS
+      pipe.puts "4" # Exit
       shell_output = pipe.read
+      pipe.close_write
+      pipe.close_read
     end
     assert_equal expected_output, shell_output
+  end
+
+  def test_happy_path_editing_a_project
+    shell_output = ""
+    expected_output = <<EOS
+1. Add project
+2. View all projects
+3. Exit
+EOS
+    test_project = "Project 1"
+    project = Project.new(test_project)
+    project.save
+    IO.popen('./idea_bank manage', 'r+') do |pipe|
+      pipe.puts "2"
+      expected_output << "1. #{test_project}\n"
+      expected_output << "2. Exit\n"
+      pipe.puts "1"
+      expected_output << <<EOS
+Would you like to?
+1. View project details
+2. Edit
+3. Delete
+4. Exit
+EOS
+      pipe.puts "2" # Edit
+      expected_output << "Enter a new name:\n"
+      pipe.puts "Project 2"
+      expected_output << "Project has been updated to: \"Project 2\"\n"
+      shell_output = pipe.read
+      pipe.close_write
+      pipe.close_read
+    end
+    assert_equal expected_output, shell_output
+    new_name = Project.find(project.id).name
+    assert_equal "Project 2", new_name
   end
 
 end

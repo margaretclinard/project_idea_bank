@@ -37,9 +37,8 @@ class AddingANewProject < Minitest::Test
     shell_output = ""
     expected_output = <<EOS
 1. Add project
-2. Update project
-3. Delete project
-4. View all projects
+2. View all projects
+3. Exit
 EOS
     IO.popen("./idea_bank manage", "r+") do |pipe|
       pipe.puts "1"
@@ -54,6 +53,11 @@ EOS
 Project 1
 Details: This is an example description.
 EOS
+      expected_output << <<EOS
+1. Add project
+2. View all projects
+3. Exit
+EOS
       pipe.close_write
       shell_output = pipe.read
     end
@@ -65,9 +69,8 @@ EOS
     shell_output = ""
     expected_output = <<EOS
 1. Add project
-2. Update project
-3. Delete project
-4. View all projects
+2. View all projects
+3. Exit
 EOS
     test_project = ""
     IO.popen("./idea_bank manage", "r+") do |pipe|
