@@ -62,6 +62,7 @@ EOS
 EOS
       pipe.puts "2"
       expected_output <<"1. Project 1\n2. Project 2\n3. Exit\n"
+      pipe.puts "3"
       pipe.close_write
       shell_output = pipe.read
     end

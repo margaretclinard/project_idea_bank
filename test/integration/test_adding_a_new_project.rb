@@ -58,6 +58,8 @@ EOS
 2. View all projects
 3. Exit
 EOS
+      pipe.puts "3"
+      expected_output << "Goodbye!\n"
       pipe.close_write
       shell_output = pipe.read
     end
