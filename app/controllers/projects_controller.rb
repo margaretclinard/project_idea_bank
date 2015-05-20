@@ -38,10 +38,9 @@ class ProjectsController
   end
 
   def add(name)
-    name_cleaned = name.strip
-    project = Project.new(name_cleaned)
+    project = Project.new(name.strip)
     if project.save
-      "#{name} has been added."
+      "#{name} has been added.\n"
     else
       project.errors
     end
