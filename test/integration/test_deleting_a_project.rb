@@ -27,17 +27,43 @@ require_relative '../test_helper'
 class DeletingAProject < Minitest::Test
 
   def test_deleting_projects
+    skip
     shell_output = ""
     expected_output = ""
     IO.popen("./idea_bank manage", "r+") do |pipe|
-      expected_output = <<EOS
-1. Add project
-2. Update project
-3. Delete project
-4. View all projects
+      expected_output = main_menu
+      pipe.puts "2" # Add a project
+      expected_output << "Enter project name.\n"
+      pipe.puts "Project 1"
+      expected_output << <<EOS
+Project 1 has been added.
+Enter a brief description of the project.
 EOS
-      pipe.puts "3"
-      expected_output << "What project would you like to delete?\n"
+      pipe.puts "This is an example description."
+      expected_output << <<EOS
+Project 1
+Details: This is an example description.
+EOS
+      expected_output = main_menu
+      pipe.puts "1"
+      expected_output << <<EOS
+Projects:
+1. Project 1
+2. Exit
+EOS
+      pipe.puts "1"
+      expected_output << <<EOS
+Project Actions:
+1. View project details
+2. Edit project name
+3. Edit project details
+4. Delete project
+5. Exit
+EOS
+      pipe.puts "4"
+      expected_output << <<EOS
+Project has been deleted.
+EOS
       pipe.close_write
       shell_output = pipe.read
     end
