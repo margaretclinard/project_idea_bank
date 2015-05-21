@@ -6,9 +6,15 @@ Dir["./lib/*.rb"].each { |f| require f }
 if ARGV.size == 1 and ARGV[0] == "manage"
   loop do
     choose do |menu|
+      menu.header = "\nProject Ideas"
       menu.prompt = ""
 
       projects_controller = ProjectsController.new
+      menu.choice('View all projects') do
+        projects_controller.index
+        exit
+      end
+
       menu.choice('Add project') do
         user_input_project = ask("Enter project name.")
         say("#{user_input_project} has been added.")
@@ -16,11 +22,6 @@ if ARGV.size == 1 and ARGV[0] == "manage"
         user_input_desc = ask("Enter a brief description of the project.")
         response = projects_controller.add(user_input_project, user_input_desc)
         say("#{user_input_project}\nDetails: #{user_input_desc}\n") unless response.nil?
-      end
-
-      menu.choice('View all projects') do
-        projects_controller.index
-        exit
       end
 
       menu.choice('Exit') do

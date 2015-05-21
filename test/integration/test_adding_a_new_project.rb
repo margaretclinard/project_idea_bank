@@ -35,31 +35,28 @@ class AddingANewProject < Minitest::Test
 
   def test_adding_a_project
     shell_output = ""
-    expected_output = <<EOS
-1. Add project
-2. View all projects
-3. Exit
-EOS
+    expected_output = ""
     IO.popen("./idea_bank manage", "r+") do |pipe|
-      pipe.puts "1"
-      expected_output << "Enter project name.\n"
+      expected_output = main_menu
+      pipe.puts "2" # Add a Project
+      expected_output = "Enter project name."
       pipe.puts "Project 1"
       expected_output << <<EOS
 Project 1 has been added.
 Enter a brief description of the project.
 EOS
-      pipe.puts "This is an example description."
+      pipe.puts "Description"
       expected_output << <<EOS
 Project 1
-Details: This is an example description.
-EOS
-      expected_output << <<EOS
-1. Add project
-2. View all projects
+Details: Description
+
+Project Ideas:
+1. View all projects
+2. Add project
 3. Exit
 EOS
-      pipe.puts "3"
-      expected_output << "Goodbye!\n"
+      pipe.puts "3" # Exit
+      expected_output = "Goodbye!"
       pipe.close_write
       shell_output = pipe.read
     end
@@ -69,16 +66,11 @@ EOS
   def test_sad_path_adding_a_project
     skip
     shell_output = ""
-    expected_output = <<EOS
-1. Add project
-2. View all projects
-3. Exit
-EOS
-    test_project = ""
+    expected_output = main_menu
     IO.popen("./idea_bank manage", "r+") do |pipe|
       pipe.puts "1"
       expected_output << "Enter project name.\n"
-      pipe.puts test_project
+      pipe.puts ""
       expected_output << "\"\" is not a valid project name.\n"
       expected_output << "Enter project name.\n"
       pipe.puts "Project 1"
@@ -91,11 +83,7 @@ EOS
 Project 1
 Details: This is an example description.
 EOS
-      expected_output = <<EOS
-1. Add project
-2. View all projects
-3. Exit
-EOS
+      expected_output = main_menu
       pipe.puts "3"
       pipe.close_write
       shell_output = pipe.read

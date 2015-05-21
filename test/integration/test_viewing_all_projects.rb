@@ -36,12 +36,8 @@ class ViewingAllProjects < Minitest::Test
     shell_output = ""
     expected_output = ""
     IO.popen("./idea_bank manage", "r+") do |pipe|
-      expected_output = <<EOS
-1. Add project
-2. View all projects
-3. Exit
-EOS
-      pipe.puts "2"
+      expected_output = main_menu
+      pipe.puts "1"
       expected_output << "No projects found. Add a project.\n"
       pipe.close_write
       shell_output = pipe.read
@@ -55,12 +51,8 @@ EOS
     shell_output = ""
     expected_output = ""
     IO.popen("./idea_bank manage", "r+") do |pipe|
-      expected_output = <<EOS
-1. Add project
-2. View all projects
-3. Exit
-EOS
-      pipe.puts "2"
+      expected_output = main_menu
+      pipe.puts "1"
       expected_output <<"\nProjects:\n1. Project 1\n2. Project 2\n3. Exit\n"
       pipe.puts "3"
       pipe.close_write

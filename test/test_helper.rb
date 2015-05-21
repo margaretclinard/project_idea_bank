@@ -19,3 +19,7 @@ end
 def add_project(name)
   Database.execute("INSERT INTO projects (name) VALUES (?)", name)
 end
+
+def main_menu
+  "\nProject Ideas:\n1. View all projects\n2. Add project\n3. Exit\n"
+end

@@ -39,15 +39,11 @@ class UpdatingAProject < Minitest::Test
 
   def test_user_left_projects_unchanged
     shell_output = ""
-    expected_output = <<EOS
-1. Add project
-2. View all projects
-3. Exit
-EOS
+    expected_output = main_menu
     test_project = "Project 1"
     Project.new(test_project).save
     IO.popen('./idea_bank manage', 'r+') do |pipe|
-      pipe.puts "2"
+      pipe.puts "1" # View all projects
       expected_output << "\nProjects:\n"
       expected_output << "1. #{test_project}\n"
       expected_output << "2. Exit\n"
@@ -71,16 +67,12 @@ EOS
 
   def test_happy_path_editing_a_project
     shell_output = ""
-    expected_output = <<EOS
-1. Add project
-2. View all projects
-3. Exit
-EOS
+    expected_output = main_menu
     test_project = "Project 1"
     project = Project.new(test_project)
     project.save
     IO.popen('./idea_bank manage', 'r+') do |pipe|
-      pipe.puts "2"
+      pipe.puts "1" # View all projects
       expected_output << "\nProjects:\n"
       expected_output << "1. #{test_project}\n"
       expected_output << "2. Exit\n"

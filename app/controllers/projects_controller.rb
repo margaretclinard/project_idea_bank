@@ -25,6 +25,7 @@ class ProjectsController
         descriptions = Project.description(project.id)
         descriptions.each do |desc|
           descriptions = desc['description']
+          say("\nProject: #{project.name}")
           say("Details: #{descriptions}")
         end
       end
