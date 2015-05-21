@@ -7,6 +7,7 @@ class ProjectsController
       choose do |menu|
         menu.prompt = ""
         projects.each do |project|
+          menu.header = "\nProjects"
           menu.choice(project.name){ action_menu(project) }
         end
         menu.choice("Exit")
@@ -17,18 +18,26 @@ class ProjectsController
   end
 
   def action_menu(project)
-    say("Would you like to?")
     choose do |menu|
+      menu.header = "\nProject Actions"
       menu.prompt = ""
       menu.choice("View project details") do
-        project = Project.find(project.id)
-        say(project.name)
+        descriptions = Project.description(project.id)
+        descriptions.each do |desc|
+          descriptions = desc['description']
+          say("Details: #{descriptions}")
+        end
       end
 
-      menu.choice("Edit") do
+      menu.choice("Edit project name") do
         edit(project)
       end
-      menu.choice("Delete") do
+
+      menu.choice("Edit project details") do
+        edit_description(project)
+      end
+
+      menu.choice("Delete project") do
         destroy(project.id)
       end
       menu.choice("Exit") do
@@ -59,6 +68,19 @@ class ProjectsController
       project.name = user_input.strip
       if project.save
         say("Project has been updated to: \"#{project.name}\"")
+        return
+      else
+        say(project.errors)
+      end
+    end
+  end
+
+  def edit_description(project)
+    loop do
+      user_input = ask("Enter a new description:")
+      project.description = user_input.strip
+      if project.save
+        say("Project description has been updated to: \"#{project.description}\"")
         return
       else
         say(project.errors)

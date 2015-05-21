@@ -60,6 +60,10 @@ class Project
     Database.execute("DELETE FROM projects WHERE id=?", id)
   end
 
+  def self.description(id)
+    Database.execute("SELECT description FROM projects where id =?", id)
+  end
+
   private
 
   def self.populate_from_database(row)

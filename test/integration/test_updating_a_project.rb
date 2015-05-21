@@ -48,16 +48,20 @@ EOS
     Project.new(test_project).save
     IO.popen('./idea_bank manage', 'r+') do |pipe|
       pipe.puts "2"
+      expected_output << "\nProjects:\n"
       expected_output << "1. #{test_project}\n"
       expected_output << "2. Exit\n"
       pipe.puts "1"
       expected_output << <<EOS
-Would you like to?
-1. Edit
-2. Delete
-3. Exit
+
+Project Actions:
+1. View project details
+2. Edit project name
+3. Edit project details
+4. Delete project
+5. Exit
 EOS
-      pipe.puts "3" # Exit
+      pipe.puts "5" # Exit
       shell_output = pipe.read
       pipe.close_write
       pipe.close_read
@@ -77,16 +81,20 @@ EOS
     project.save
     IO.popen('./idea_bank manage', 'r+') do |pipe|
       pipe.puts "2"
+      expected_output << "\nProjects:\n"
       expected_output << "1. #{test_project}\n"
       expected_output << "2. Exit\n"
       pipe.puts "1"
       expected_output << <<EOS
-Would you like to?
-1. Edit
-2. Delete
-3. Exit
+
+Project Actions:
+1. View project details
+2. Edit project name
+3. Edit project details
+4. Delete project
+5. Exit
 EOS
-      pipe.puts "1" # Edit
+      pipe.puts "2" # Edit
       expected_output << "Enter a new name:\n"
       pipe.puts "Project 2"
       expected_output << "Project has been updated to: \"Project 2\"\n"
