@@ -17,15 +17,9 @@ describe ProjectsController do
     let(:controller) {ProjectsController.new}
 
     it "should add a project" do
-      controller.add("Project 1", "This is a test description")
+      controller.add("Project 1", "This is a test description", "Start", "Tech")
       assert_equal 1, Project.count
     end
-
-    it "should not add project as all spaces" do
-      skip
-      project_name = "       "
-      result = controller.add(project_name, "description")
-      assert_equal "\"\" is not a valid project name.", result
-    end
   end
+
 end

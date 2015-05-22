@@ -1,6 +1,6 @@
 class Project
   attr_reader :id, :errors
-  attr_accessor :name, :description
+  attr_accessor :name, :description, :technology, :start
 
   def initialize(name = nil)
     self.name = name
@@ -47,11 +47,11 @@ class Project
   def save
     return false unless valid?
     if @id.nil?
-      Database.execute("INSERT INTO projects (name, description) VALUES (?,?)", name, description)
+      Database.execute("INSERT INTO projects (name, description, technology, start) VALUES (?,?,?,?)", name, description, technology, start)
       @id = Database.execute("SELECT last_insert_rowid()")[0]['last_insert_rowid()']
       true
     else
-      Database.execute("UPDATE projects SET name=?, description=? WHERE id=?", name, description, id)
+      Database.execute("UPDATE projects SET name=?, description=?, technology=?, start=? WHERE id=?", name, description, technology, start, id)
       true
     end
   end
@@ -64,12 +64,22 @@ class Project
     Database.execute("SELECT description FROM projects where id =?", id)
   end
 
+  def self.technology(id)
+    Database.execute("SELECT technology FROM projects where id =?", id)
+  end
+
+  def self.start(id)
+    Database.execute("SELECT start FROM projects where id =?", id)
+  end
+
   private
 
   def self.populate_from_database(row)
     project = Project.new
     project.name = row['name']
     project.description = row['description']
+    project.start = row['start']
+    project.technology = row['technology']
     project.instance_variable_set(:@id, row['id'])
     project
   end

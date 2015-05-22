@@ -21,5 +21,12 @@ def add_project(name)
 end
 
 def main_menu
-  "\nProject Ideas:\n1. View all projects\n2. Add project\n3. Exit\n"
+  <<EOS
+----------------------------------------------------------------------
+                           Project Tracker                            
+----------------------------------------------------------------------
+1. All Projects
+2. Add New Project
+3. Exit
+EOS
 end

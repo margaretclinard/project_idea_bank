@@ -19,15 +19,8 @@ class Database
       id integer PRIMARY KEY AUTOINCREMENT,
       name varchar(55),
       description varchar(55),
-      technology_id integer
-    );
-  SQL
-
-    Database.execute <<-SQL
-    CREATE TABLE IF NOT EXISTS technologies (
-      id integer PRIMARY KEY AUTOINCREMENT,
-      name varchar(20),
-      project_id integer
+      technology varchar(55),
+      start varchar(10)
     );
   SQL
   end

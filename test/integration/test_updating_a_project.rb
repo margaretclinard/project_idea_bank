@@ -44,17 +44,22 @@ class UpdatingAProject < Minitest::Test
     Project.new(test_project).save
     IO.popen('./idea_bank manage', 'r+') do |pipe|
       pipe.puts "1" # View all projects
-      expected_output << "\nProjects:\n"
+      expected_output << <<EOS
+----------------------------------------------------------------------
+                             All Projects                             
+----------------------------------------------------------------------
+EOS
       expected_output << "1. #{test_project}\n"
       expected_output << "2. Exit\n"
       pipe.puts "1"
       expected_output << <<EOS
-
-Project Actions:
-1. View project details
-2. Edit project name
-3. Edit project details
-4. Delete project
+----------------------------------------------------------------------
+                       Actions for "Project 1"                        
+----------------------------------------------------------------------
+1. View Details
+2. Edit
+3. Delete
+4. All Projects
 5. Exit
 EOS
       pipe.puts "5" # Exit
