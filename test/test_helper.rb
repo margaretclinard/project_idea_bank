@@ -23,7 +23,7 @@ end
 def main_menu
   <<EOS
 ----------------------------------------------------------------------
-                           Project Tracker                            
+                      Project Tracker: Main Menu                      
 ----------------------------------------------------------------------
 1. All Projects
 2. Add New Project

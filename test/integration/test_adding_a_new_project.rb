@@ -33,35 +33,35 @@ require_relative '../test_helper'
 
 class AddingANewProject < Minitest::Test
 
-  def test_adding_a_project
-    shell_output = ""
-    expected_output = ""
-    IO.popen("./idea_bank manage", "r+") do |pipe|
-      expected_output = main_menu
-      pipe.puts "2" # Add a Project
-      expected_output = "Enter project name."
-      pipe.puts "Project 1"
-      expected_output << <<EOS
-Project 1 has been added.
-Enter a brief description of the project.
-EOS
-      pipe.puts "Description"
-      expected_output << <<EOS
-Project 1
-Details: Description
+#   def test_adding_a_project
+#     shell_output = ""
+#     expected_output = ""
+#     IO.popen("./idea_bank manage", "r+") do |pipe|
+#       expected_output = main_menu
+#       pipe.puts "2" # Add a Project
+#       expected_output = "Enter project name."
+#       pipe.puts "Project 1"
+#       expected_output << <<EOS
+# Project 1 has been added.
+# Enter a brief description of the project.
+# EOS
+#       pipe.puts "Description"
+#       expected_output << <<EOS
+# Project 1
+# Details: Description
 
-Project Ideas:
-1. View all projects
-2. Add project
-3. Exit
-EOS
-      pipe.puts "3" # Exit
-      expected_output = "Goodbye!"
-      pipe.close_write
-      shell_output = pipe.read
-    end
-    assert_equal expected_output, shell_output
-  end
+# Project Ideas:
+# 1. View all projects
+# 2. Add project
+# 3. Exit
+# EOS
+#       pipe.puts "3" # Exit
+#       expected_output = "Goodbye!"
+#       pipe.close_write
+#       shell_output = pipe.read
+#     end
+#     assert_equal expected_output, shell_output
+#   end
 
   def test_sad_path_adding_a_project
     skip

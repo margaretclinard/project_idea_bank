@@ -7,37 +7,7 @@ MENU_FORMAT = "-----------------------------------------------------------------
 WIDTH = 70
 
 if ARGV.size == 1 and ARGV[0] == "manage"
-  loop do
-    choose do |menu|
-      puts MENU_FORMAT
-      puts "Project Tracker".center(WIDTH)
-      puts MENU_FORMAT
-      menu.prompt = ""
-
-      projects_controller = ProjectsController.new
-      menu.choice('All Projects') do
-        projects_controller.index
-        exit
-      end
-
-      menu.choice('Add New Project') do
-        user_input_project = ask("\nEnter project name.")
-
-        user_input_start = ask("\nEnter a due date.")
-
-        user_input_desc = ask("\nEnter a brief description of the project.")
-
-        user_input_technology = ask("\nEnter the technologies you intend to use.")
-        response = projects_controller.add(user_input_project, user_input_desc, user_input_technology, user_input_start)
-        say("\n#{user_input_project} has been saved:\nDescription: #{user_input_desc}\nStack: #{user_input_technology}\nDue Date: #{user_input_start}") unless response.nil?
-      end
-
-      menu.choice('Exit') do
-        say("Goodbye!")
-        exit
-      end
-    end
-  end
+  ProjectsController.manage_menu
 else
   puts "[Help] Run as: ./idea_bank manage"
 end

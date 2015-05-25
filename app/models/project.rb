@@ -7,7 +7,7 @@ class Project
   end
 
   def self.all
-    Database.execute("select * from projects order by name ASC").map do |row|
+    Database.execute("select * from projects order by start ASC").map do |row|
       populate_from_database(row)
     end
   end
