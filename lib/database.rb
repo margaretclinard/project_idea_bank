@@ -1,4 +1,5 @@
 require 'sqlite3'
+require 'active_record'
 
 class Database
   def self.execute(*args)
